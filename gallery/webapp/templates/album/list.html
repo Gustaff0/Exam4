@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if not albums %}
+ <h2 class="text-center">Нет Альбомов!</h2>
+{% endif %}
+
+{% for album in albums %}
+<br>
+<div class="card">
+  <div class="card-header">
+      <h5>{{ album.name }}</h5>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ album.description }}</p>
+      <footer class="blockquote-footer"><a href="{% url 'accounts:user_detail' album.author.id %}">{{ album.author.username }}</a></footer>
+    </blockquote>
+      {% if user.is_authenticated %}
+      <a href="{% url 'webapp:album_view' album.pk %}" class="btn btn-primary">View</a>
+      {% endif %}
+      {% if request.user == album.author %}
+      <a href="{% url 'webapp:album_edit' album.pk %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'webapp:album_delete' album.pk %}" class="btn btn-primary">Delete</a>
+      {% endif %}
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

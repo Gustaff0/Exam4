@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+<h6>Photo: {{ photo.signature }}</h6>
+<img src="{{ photo.photo.url }}">
+ <h5>Private or No:</h5>
+<p>{{ photo.private }}</p>
+</div>
+<br>
+{% endblock %}
+
+{% block menu %}
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'webapp:photo_edit' photo.pk %}">Edit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'webapp:photo_delete' photo.pk %}">Delete</a>
+    </li>
+{% endblock %}

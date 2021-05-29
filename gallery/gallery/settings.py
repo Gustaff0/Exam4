@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
 
 from pathlib import Path
 
@@ -27,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = 'webapp:home'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+
 
 # Application definition
 
@@ -37,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webapp',
+    'accounts',
+    'rest_framework',
+    'api_v1'
 ]
 
 MIDDLEWARE = [
@@ -68,6 +76,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gallery.wsgi.application'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads/')
+MEDIA_URL = '/uploads/'
 
 
 # Database

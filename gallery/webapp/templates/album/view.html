@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<br>
+<div class="container">
+<h6>Album : {{ album.name }}</h6>
+<h6>Description: {{ album.description }}</h6>
+ <h5>Private or No:</h5>
+<p>{{ album.private }}</p>
+</div>
+<br>
+{% for photo in album.album.all %}
+<br>
+<div class="card" style="width: 18rem;">
+  <img src="{{ photo.photo.url }}" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{ photo.signature }}</h5>
+    {% if request.user == photo.author and request.user == album.author %}
+    <a href="{% url 'webapp:photo_delete' photo.pk %}" class="btn btn-primary">Delete</a>
+    <a href="{% url 'webapp:photo_edit' photo.pk %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'webapp:photo_view' photo.pk %}" class="btn btn-primary">View</a>
+     {% endif %}
+     {% if request.user in photo.photo_f.all %}
+    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" onclick="RemFav(event)">DropInFavorite</BUTTON>
+     {% else %}
+    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" onclick="AddFav(event)">AddToFavorite</BUTTON>
+    {% endif %}
+  </div>
+</div>
+{% empty %}
+<h2>НЕТ ФОТО</h2>
+{% endfor %}
+{% endblock %}
+
+
+{% block menu %}
+{% if request.user == album.author %}
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'webapp:album_edit' album.pk %}">Edit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'webapp:album_delete' album.pk %}">Delete</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="{% url 'webapp:photo_create' album.pk %}">CreatePhoto</a>
+    </li>
+{% endif %}
+
+<script>
+        function getCookie(name) {
+  if (!document.cookie) {
+    return null;
+  }
+  const xsrfCookies = document.cookie.split(';')
+    .map(c => c.trim())
+    .filter(c => c.startsWith(name + '='));
+
+  if (xsrfCookies.length === 0) {
+    return null;
+  }
+  return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+}
+
+
+
+        async function AddFav(event) {
+        const csrfToken = getCookie('csrftoken')
+        const headers = new Headers({
+        'Content-Type': 'x-www-form-urlencoded',
+        'X-CSRFToken': csrfToken
+         });
+        let button = event.target
+        event.preventDefault()
+        let a = button.dataset.counter_id
+        let b = button.dataset.user
+        let base_url = button.dataset.url
+        let response = await fetch(base_url, {method: 'POST', headers, body: JSON.stringify({'photo' : a, 'user' : b})})
+        let id = button.dataset.counter_id
+        button.innerText = 'DropInFavorite'
+        button.onclick = () => {
+            RemFav(event)
+        }
+        }
+
+
+        async function RemFav(event) {
+          let button = event.target
+         event.preventDefault()
+         let base_url = button.dataset.url
+         let response = await fetch(base_url, {method : 'DELETE'})
+         let id = button.dataset.counter_id
+        button.innerText = 'AddToFavorite'
+        button.onclick = () => {
+            AddFav(event)
+        }
+        }
+
+</script>
+{% endblock %}
