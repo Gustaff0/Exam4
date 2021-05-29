@@ -66,7 +66,7 @@
         async function AddFav(event) {
         const csrfToken = getCookie('csrftoken')
         const headers = new Headers({
-        'Content-Type': 'x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         'X-CSRFToken': csrfToken
          });
         let button = event.target
@@ -74,8 +74,11 @@
         let a = button.dataset.counter_id
         let b = button.dataset.user
         let base_url = button.dataset.url
-        let response = await fetch(base_url, {method: 'POST', headers, body: JSON.stringify({'photo' : a, 'user' : b})})
-        let id = button.dataset.counter_id
+        let response = await fetch(base_url, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({"photo": a, "user": b})
+        })
         button.innerText = 'DropInFavorite'
         button.onclick = () => {
             RemFav(event)
@@ -87,8 +90,7 @@
           let button = event.target
          event.preventDefault()
          let base_url = button.dataset.url
-         let response = await fetch(base_url, {method : 'DELETE'})
-         let id = button.dataset.counter_id
+        let response = await fetch(base_url, {method : 'DELETE'})
         button.innerText = 'AddToFavorite'
         button.onclick = () => {
             AddFav(event)
