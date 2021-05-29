@@ -21,9 +21,9 @@
     <a href="{% url 'webapp:photo_view' photo.pk %}" class="btn btn-primary">View</a>
      {% endif %}
      {% if request.user in photo.photo_f.all %}
-    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" onclick="RemFav(event)">DropInFavorite</BUTTON>
+    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" data-idblock="{{ album.album.photo_f.id }}" onclick="RemFav(event)">DropInFavorite</BUTTON>
      {% else %}
-    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" onclick="AddFav(event)">AddToFavorite</BUTTON>
+    <BUTTON data-counter_id="{{ photo.pk }}" data-user="{{ request.user.id }}" data-url="http://localhost:8000/api/v1/favorite/" data-idblock="{{ album.album.photo_f.id }}" onclick="AddFav(event)">AddToFavorite</BUTTON>
     {% endif %}
   </div>
 </div>
@@ -90,7 +90,8 @@
           let button = event.target
          event.preventDefault()
          let base_url = button.dataset.url
-        let response = await fetch(base_url, {method : 'DELETE'})
+            let id = button.dataset.idblock
+        let response = await fetch(base_url, {method : 'DELETE', headers: {'Content-Type': 'application/json'}, body: id})
         button.innerText = 'AddToFavorite'
         button.onclick = () => {
             AddFav(event)

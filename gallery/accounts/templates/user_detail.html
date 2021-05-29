@@ -30,11 +30,13 @@
       <a href="{% url 'webapp:album_delete' album.pk %}" class="btn btn-primary">Delete</a>
       {% endif %}
       </div>
+    </div>
 {% endfor %}
-</div>
 <br>
 <h1>Избранные:</h1>
-{% for album in album.photo_s.all %}
-    <img src="{{ album.photo.url }}">
+{% for i in favorites %}
+    <img src="{{ i.photo.photo.url }}">
+{% empty %}
+    <h3>Нет избранных</h3>
 {% endfor %}
 {% endblock %}
