@@ -62,7 +62,7 @@
     "description": "sfsfsdfsfs",
     "author": 1,
     "created_at": "2021-05-29T11:41:15.642Z",
-    "private": "private"
+    "private": "public"
   }
 },
 {
@@ -243,6 +243,30 @@
   }
 },
 {
+  "model": "webapp.photo",
+  "pk": 19,
+  "fields": {
+    "photo": "gallery_pics/Снимок_экрана_от_2021-04-20_17-34-52.png",
+    "signature": "Lobster228",
+    "created_at": "2021-05-29T12:31:10.112Z",
+    "author": 1,
+    "album": 8,
+    "private": "public"
+  }
+},
+{
+  "model": "webapp.photo",
+  "pk": 20,
+  "fields": {
+    "photo": "gallery_pics/Снимок_экрана_от_2021-05-10_00-29-24.png",
+    "signature": "Lobster228",
+    "created_at": "2021-05-29T13:43:27.752Z",
+    "author": 1,
+    "album": 7,
+    "private": "public"
+  }
+},
+{
   "model": "webapp.favorites",
   "pk": 2,
   "fields": {
@@ -275,11 +299,91 @@
   }
 },
 {
+  "model": "webapp.favorites",
+  "pk": 6,
+  "fields": {
+    "user": 1,
+    "photo": 16
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 7,
+  "fields": {
+    "user": 1,
+    "photo": 17
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 8,
+  "fields": {
+    "user": 1,
+    "photo": 16
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 9,
+  "fields": {
+    "user": 1,
+    "photo": 18
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 10,
+  "fields": {
+    "user": 1,
+    "photo": 17
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 11,
+  "fields": {
+    "user": 1,
+    "photo": 16
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 12,
+  "fields": {
+    "user": 1,
+    "photo": 17
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 13,
+  "fields": {
+    "user": 1,
+    "photo": 17
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 14,
+  "fields": {
+    "user": 1,
+    "photo": 12
+  }
+},
+{
+  "model": "webapp.favorites",
+  "pk": 15,
+  "fields": {
+    "user": 1,
+    "photo": 20
+  }
+},
+{
   "model": "auth.user",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$260000$AuaGvJ5slbH3sQsdr1cUCk$EstYbfH2TmTYFMQQMDshzlAnU/XskrcJrsUTjs1d1Mw=",
-    "last_login": "2021-05-29T12:16:36.976Z",
+    "last_login": "2021-05-29T13:41:19.782Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
